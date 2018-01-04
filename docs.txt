@@ -1,0 +1,53 @@
+Arithmetic and Logic Unit
+	A Multiplexer where the S tell what operation to peform with input A and B
+	All operations are performed, but you select which result to use at the end.
+
+
+
+Datpath"
+
+1) Fetch instruction
+2) decode instruction
+3) ALU
+4) access memory
+5) write register
+
+
+Stage 1:
+	- Fetch the 16-bit instruction from memory //cache-memory hierarchy
+	- ProgramCounter += 2
+
+Stage 2:
+	- upon fetching the instruction, we gather the data from the fields
+		(decode all necessary instruction data)
+	- first, read the opcode to determine instruction type and field lengths
+	- second, read in data from all necessary registers
+		* for add, read two registers
+		* for addi, read one register
+		* for jal, no read necessary
+
+Stage 3:
+ed the real work of most instructions is done here:
+		arithmetic, shiftingm logic, comparisons
+	- what about loads and stores?
+		lw $t0, 40($t1)
+
+Stage 4:
+	-   actually only the load and store instructions do anything during this
+		stage; the others remain idle during this stage or skip it all
+		together.
+	-	Since these instructions have a unique step, we need this extra stage,
+		to account for them.
+	-	as a result of the cache-system, this stage should be fast
+
+stage 5:
+	-	most instructions write the result of some computation
+		into a register.
+	-	examples: arithmetic, logical, shifts, loads, slt
+	-	what abotu stores, branches, jumps?
+		* don't write anything into a register at the end
+		* these remaing idle or skip it all together
+
+
+
+
